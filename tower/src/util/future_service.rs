@@ -187,7 +187,7 @@ mod tests {
 
         assert_eq!(
             format!("{pending_svc:?}"),
-            "FutureService { state: State::Future(<core::future::ready::Ready<core::result::Result<tower::util::future_service::tests::DebugService, core::convert::Infallible>>>) }"
+            "FutureService { state: State::Future(<core::future::ready::Ready<core::result::Result<tower::util::future_service::tests::DebugService, !>>>) }"
         );
 
         pending_svc.ready().await.unwrap();
