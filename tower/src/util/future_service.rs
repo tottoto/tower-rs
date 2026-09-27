@@ -187,7 +187,11 @@ mod tests {
 
         assert_eq!(
             format!("{pending_svc:?}"),
-            "FutureService { state: State::Future(<core::future::ready::Ready<core::result::Result<tower::util::future_service::tests::DebugService, core::convert::Infallible>>>) }"
+            if rustversion::cfg!(since(1.100)) {
+                "FutureService { state: State::Future(<core::future::ready::Ready<core::result::Result<tower::util::future_service::tests::DebugService, !>>>) }"
+            } else {
+                "FutureService { state: State::Future(<core::future::ready::Ready<core::result::Result<tower::util::future_service::tests::DebugService, core::convert::Infallible>>>) }"
+            }
         );
 
         pending_svc.ready().await.unwrap();
